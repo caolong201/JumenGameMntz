@@ -72,7 +72,7 @@ public class PlatformItem : MonoBehaviour
         if (isFall)
         {
             //Debug.LogError("dfghrt");
-            gameObject.transform.position -= new Vector3(0f, .07f, 0f);
+            gameObject.transform.position -= new Vector3(0f, .14f, 0f);
         }
     }
 }

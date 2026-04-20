@@ -13,12 +13,12 @@ public static class GameConstance {
 	/// <summary>
 	/// The time platorm down.
 	/// </summary>
-	public static float TimePlatformDown_Start = 3f;
-	public static float TimePlatformDown_Over50 = .7f;
-	public static float TimePlatformDown_Over200 = .6f;
-	public static float TimePlatformDown_Over300 = .5f;
+	public static float TimePlatformDown_Start = 1.5f;
+	public static float TimePlatformDown_Over50 = .3f;
+	public static float TimePlatformDown_Over200 = .2f;
+	public static float TimePlatformDown_Over300 = .15f;
 
-	public static float TimePlatformAutodown = .4f;
+	public static float TimePlatformAutodown = .12f;
 	/// <summary>
 	/// The name of the platform.
 	/// </summary>
