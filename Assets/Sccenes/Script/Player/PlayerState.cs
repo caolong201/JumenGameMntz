@@ -28,11 +28,15 @@ public class PlayerState : SingletonMono<PlayerState> {
 	}
 	void OnTriggerEnter(Collider other) 
 	{
-		if(other.gameObject.tag == GameConstance.EnemyTag)
+		Transform hitTransform = other.transform;
+		Transform enemyTransform = FindParentByTag(hitTransform, GameConstance.EnemyTag);
+		if (enemyTransform != null)
 		{
 			if (PlayerState.Instance.playerCurrState == State.AutoRun) 
 			{
-				other.gameObject.GetComponent<BarrierItem>().Boom(true);
+				BarrierItem barrierItem = enemyTransform.GetComponent<BarrierItem>();
+				if (barrierItem != null)
+					barrierItem.Boom(true);
 				SoundManager.Instance.PlayBoom();
 			}
 			else
@@ -42,19 +46,38 @@ public class PlayerState : SingletonMono<PlayerState> {
 				//tinh toan tien tu score khj die
 				AvPlayerManager.Instance.CaculatorMoney(ScoreManager.Instance.Score);
 			}
-				
+			return;
 		}
-		else if(other.gameObject.tag == GameConstance.BonusTag)
+
+		Transform bonusTransform = FindParentByTag(hitTransform, GameConstance.BonusTag);
+		if (bonusTransform != null)
 		{
 			playerCurrState = State.AutoRun;
-			//Debug.Log("Bonus");
+			Destroy(bonusTransform.gameObject, 0.03f);
+			return;
 		}
-		else if (other.gameObject.tag == GameConstance.ChangeCameraTag) {
+
+		Transform changeCameraTransform = FindParentByTag(hitTransform, GameConstance.ChangeCameraTag);
+		if (changeCameraTransform != null) {
 			//change camera
 			CameraFollow.isChangeCamera =true;
-			Destroy(other.gameObject,0.03f);
+			Destroy(changeCameraTransform.gameObject,0.03f);
 			SoundManager.Instance.PlayChangeDirection();
 		}
+	}
+
+	private Transform FindParentByTag(Transform trans, string tagName)
+	{
+		Transform current = trans;
+		while (current != null)
+		{
+			if (current.CompareTag(tagName))
+				return current;
+
+			current = current.parent;
+		}
+
+		return null;
 	}
 	private void PlayerDeath()//khi nao muon player die thi goi ham nay
 	{

@@ -33,9 +33,13 @@ public class TutorialsManager : SingletonMono<TutorialsManager>
     // Use this for initialization
     void Start()
     {
+        isTutorialing = false;
+        tutorialSate = TutorialState.None;
+
+        // Always skip tutorial flow when entering game.
         if (!SaveDataManager.Instance.GetTutorial())
-        {//chua tutorial
-            isTutorialing = true;
+        {
+            SaveDataManager.Instance.SaveTutoial();
         }
     }
 

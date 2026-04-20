@@ -44,44 +44,11 @@ public class PlatformItem : MonoBehaviour
                     {//pos 1
                         newBarrier.transform.position = new Vector3(transform.position.x, newBarrier.transform.position.y + 4, pos1);
                         newBarrier.GetComponent<BarrierItem>().Init(newBarrier.transform.position, transform.position.y);
-                        if (rand == 6)
-                        { //truong hop nay randdom itemchangecamera
-                            int r = UnityEngine.Random.Range(0, 5);
-                            if (r == 1)
-                            {
-                                GameObject itemChange = Instantiate(itemChangeCamra) as GameObject;
-                                itemChange.transform.SetParent(gameObject.transform);
-                                itemChange.transform.position = new Vector3(transform.position.x, itemChange.transform.position.y, pos2);
-                            }
-                        }
                     }
                     else
                     { //pos 2
                         newBarrier.transform.position = new Vector3(transform.position.x, newBarrier.transform.position.y + 4, pos2);
                         newBarrier.GetComponent<BarrierItem>().Init(newBarrier.transform.position, transform.position.y);
-                        if (rand == 3)
-                        { //truong hop nay randdom itemchangecamera
-                            int r = UnityEngine.Random.Range(0, 5);
-                            if (r == 1)
-                            {
-                                GameObject itemChange = Instantiate(itemChangeCamra) as GameObject;
-                                itemChange.transform.SetParent(gameObject.transform);
-                                itemChange.transform.position = new Vector3(transform.position.x, itemChange.transform.position.y, pos1);
-                            }
-                        }
-                    }
-                }
-                else if (rand == 1)
-                {//truong hop nay random item bonus
-                    if (PlayerState.Instance.playerCurrState != State.AutoRun)
-                    {// neu dang chay auto thi hk tao nua
-                        int r = UnityEngine.Random.Range(0, 5);
-                        if (r == 1)
-                        {
-                            GameObject item = Instantiate(itemBonus) as GameObject;
-                            item.transform.SetParent(gameObject.transform);
-                            item.transform.position = new Vector3(transform.position.x, item.transform.position.y, transform.position.z);
-                        }
                     }
                 }
             }
