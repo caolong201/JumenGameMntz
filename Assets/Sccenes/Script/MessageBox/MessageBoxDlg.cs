@@ -48,6 +48,10 @@ public class MessageBoxDlg : MonoBehaviour,UIDialogBase {
 
 	public void OnbtnOKclicked()
 	{
+		if (GameMonetize.Instance != null)
+		{
+			GameMonetize.Instance.ShowAd();
+		}
 		GuiManager.Instance.HideBlackBolder();
 		GuiManager.Instance.HideMessageBox (true,true, .3f, 0, "y", 1500);
 		Debug.Log("OK");

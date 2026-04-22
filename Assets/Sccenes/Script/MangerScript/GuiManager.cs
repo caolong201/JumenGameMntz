@@ -34,6 +34,30 @@ public class GuiManager : SingletonMonoAwake<GuiManager>
     Animator ani;
     bool isSettingOpen = false;
 
+    void OnEnable()
+    {
+        GameMonetize.OnPauseGame += OnAdPauseGame;
+        GameMonetize.OnResumeGame += OnAdResumeGame;
+    }
+
+    void OnDisable()
+    {
+        GameMonetize.OnPauseGame -= OnAdPauseGame;
+        GameMonetize.OnResumeGame -= OnAdResumeGame;
+    }
+
+    void OnAdPauseGame()
+    {
+        Time.timeScale = 0.01f;
+        AudioListener.volume = 0f;
+    }
+
+    void OnAdResumeGame()
+    {
+        AudioListener.volume = 1f;
+        Time.timeScale = 1f;
+    }
+
     public override void OnAwake()
     {
         base.OnAwake();
@@ -58,6 +82,10 @@ public class GuiManager : SingletonMonoAwake<GuiManager>
 
         if (PlayerState.Instance.playerCurrState == State.Death)
         {
+            if (GameMonetize.Instance != null)
+            {
+                GameMonetize.Instance.ShowAd();
+            }
             PlayerState.Instance.playerCurrState = State.Idle;
             ShowPanelRePlay();
         }
@@ -188,6 +216,10 @@ public class GuiManager : SingletonMonoAwake<GuiManager>
     }
     public void OnbtnRePlayClicked()
     {
+        if (GameMonetize.Instance != null)
+        {
+            GameMonetize.Instance.ShowAd();
+        }
         GuiManager.Instance.Hideloading();
         SoundManager.Instance.PlayButtonClick();
         ScoreManager.Instance.Score = 0;
